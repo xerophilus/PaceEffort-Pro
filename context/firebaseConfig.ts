@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { initializeAuth, getReactNativePersistence, browserSessionPersistence } from 'firebase/auth';
 import { getFirestore, collection } from 'firebase/firestore'
+import { getAnalytics, isSupported } from 'firebase/analytics';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Platform } from "react-native";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -9,13 +10,13 @@ import { Platform } from "react-native";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: "AIzaSyBnjfWdlAJwlgoJO9Da0qb91TR69uRTBrA",
-    authDomain: "outfitly-ad582.firebaseapp.com",
-    projectId: "outfitly-ad582",
-    storageBucket: "outfitly-ad582.appspot.com",
-    messagingSenderId: "309049697065",
-    appId: "1:309049697065:web:c7b4b6c8fc8e5f1256cd38",
-    measurementId: "G-L88CYP7RGL"
+    apiKey: "AIzaSyBkoWVWTDv2d_ze6FIBeNcrRQWgpTMxpWA",
+    authDomain: "paceeffort-pro.firebaseapp.com",
+    projectId: "paceeffort-pro",
+    storageBucket: "paceeffort-pro.appspot.com",
+    messagingSenderId: "531300426219",
+    appId: "1:531300426219:web:22fb0692e3c56304fe39ae",
+    measurementId: "G-F9LJ89HEC9"
 };
 
 // Initialize Firebase
@@ -26,3 +27,13 @@ export const auth = initializeAuth(app, {
 })
 
 export const db = getFirestore(app);
+
+let analytics = null;
+isSupported()
+.then(res => {
+    if (res){
+        analytics = getAnalytics(app);
+    }
+})
+
+export { analytics };

@@ -1,7 +1,10 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { collection, addDoc, getDocs, doc, getDoc, setDoc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendPasswordResetEmail } from 'firebase/auth';
-import { auth, db } from './firebaseConfig';
+import { isSupported, logEvent } from 'firebase/analytics';
+
+import { auth, db, analytics } from './firebaseConfig';
+import { Platform } from 'react-native';
 
 const FirebaseContext = createContext();
 
@@ -70,12 +73,27 @@ export const FirebaseProvider = ({ children }) => {
       console.error('Error saving push token: ', e);
     }
   };
-  
+
+  const saveRunData = async (distance, time, speed, unit) => {
+    try {
+      await addDoc(collection(db, 'runs'), {
+        distance,
+        time,
+        pace: speed,
+        unit,
+        timestamp: new Date(),
+        userId: user.uid,
+      });
+    } catch (error) {
+      console.error('Error saving run data: ', error);
+    }
+  };
+
   return (
     <FirebaseContext.Provider value={{
       user, habits, notifications,
       register, login, logout, forgotPassword,
-      savePushToken
+      savePushToken, saveRunData
     }}>
       {children}
     </FirebaseContext.Provider>

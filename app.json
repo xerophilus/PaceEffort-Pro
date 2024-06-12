@@ -13,12 +13,18 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-3734209656134757~8815230107"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
+      },
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-3734209656134757~3726269546"
       }
     },
     "web": {
@@ -31,6 +37,10 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "react-native-google-mobile-ads": {
+      "android_app_id": "ca-app-pub-3734209656134757~3726269546",
+      "ios_app_id": "ca-app-pub-3734209656134757~8815230107"
     }
   }
 }
